@@ -57,7 +57,7 @@
   .team-row{display:flex; gap:8px}
   .team-input{flex:1}
 
-  /* Bracket area */
+  
   .board{
     flex:1;
     overflow:auto;
@@ -129,7 +129,7 @@
     margin-top:12px;
   }
 
-  /* responsive */
+  
   @media (max-width:900px){
     body{flex-direction:column;}
     .sidebar{width:100%}

@@ -57,7 +57,7 @@
   </div>
 
 <script>
-/* Tournament bracket generator (safe) */
+
 const teamsContainer = document.getElementById('teamsContainer');
 const setTeamsBtn = document.getElementById('setTeamsBtn');
 const numTeamsInput = document.getElementById('numTeams');
@@ -111,12 +111,12 @@ resetBtn.addEventListener('click', ()=>{
 function nextPow2(x){ return Math.pow(2, Math.ceil(Math.log2(x))); }
 
 function buildBracket(teams){
-  // pad with BYE to next power of two
+  
   const target = nextPow2(teams.length);
   const padded = teams.slice();
   while(padded.length < target) padded.push('BYE');
 
-  // rounds: array of arrays of matches, match is [teamA, teamB, winner]
+  
   const rounds = [];
   let currentRound = [];
   for(let i=0;i<padded.length;i+=2){
@@ -172,16 +172,16 @@ function renderBracket(rounds){
       teamB.appendChild(bBtn);
 
       if((m.a === 'BYE' && m.b && m.b !== 'BYE') || (m.b === 'BYE' && m.a && m.a !== 'BYE')){
-        // auto-advance non-BYE
+       
         const winnerKey = (m.a==='BYE') ? 'b' : 'a';
-        // small timeout to allow DOM render
+       
         setTimeout(()=>selectWinner(r,mi,winnerKey, true), 20);
       }
 
       match.appendChild(teamA);
       match.appendChild(teamB);
 
-      // connector only if not last round
+      
       if(r < totalRounds -1){
         const conn = document.createElement('div');
         conn.className='connector';
@@ -204,24 +204,24 @@ function generateFromInputs(){
   }
   currentTeams = filtered;
   bracketRounds = buildBracket(currentTeams);
-  // copy team names into round 0 matches
+  
   bracketRounds[0].forEach((m,i)=>{
-    // m.a and m.b already set by buildBracket
+    
   });
   boardTitle.textContent = `${gameSelect.value} - ${currentTeams.length} teams`;
   boardSub.textContent = `Click a team name's "Select" button to mark winner of that match.`;
   renderBracket(bracketRounds);
 }
 
-// select winner logic
+
 function selectWinner(roundIdx, matchIdx, slot, auto=false){
   const match = bracketRounds[roundIdx][matchIdx];
   const winnerName = slot === 'a' ? match.a : match.b;
   if(!winnerName) return;
-  // mark winner in current match
+  
   match.winner = winnerName;
 
-  // update DOM visuals
+  
   const matchDiv = document.querySelector(`.match[data-round="${roundIdx}"][data-match="${matchIdx}"]`);
   if(matchDiv){
     const teams = matchDiv.querySelectorAll('.team');
@@ -236,7 +236,7 @@ function selectWinner(roundIdx, matchIdx, slot, auto=false){
     if(chosenBtn) chosenBtn.textContent = 'Winner';
   }
 
-  // place winner into next round slot
+  
   if(roundIdx + 1 < bracketRounds.length){
     const nextMatchIdx = Math.floor(matchIdx/2);
     const isFirstSlot = (matchIdx %2 === 0);
@@ -245,22 +245,22 @@ function selectWinner(roundIdx, matchIdx, slot, auto=false){
     } else {
       bracketRounds[roundIdx+1][nextMatchIdx].b = winnerName;
     }
-    // If the opponent is BYE, auto-advance
+   
     const nm = bracketRounds[roundIdx+1][nextMatchIdx];
     if((nm.a && nm.a==='BYE' && nm.b && nm.b!=='BYE') || (nm.b && nm.b==='BYE' && nm.a && nm.a!=='BYE')){
       const winnerKey = nm.a==='BYE' ? 'b' : 'a';
-      // immediate select next round winner
+      
       setTimeout(()=>selectWinner(roundIdx+1,nextMatchIdx,winnerKey,true), 40);
     }
   } else {
-    // last round winner: tournament winner selected
+    
     boardSub.textContent = `Champion: ${winnerName} 🏆`;
   }
-  // re-render rounds to show updates
+  
   renderBracket(bracketRounds);
 }
 
-// Export JSON of bracket
+
 exportBtn.addEventListener('click', ()=>{
   if(!bracketRounds || bracketRounds.length===0){ alert('No bracket to export.'); return; }
   const payload = {
@@ -278,7 +278,7 @@ exportBtn.addEventListener('click', ()=>{
 
 generateBtn.addEventListener('click', generateFromInputs);
 
-// --- NEW: send to backend when generating ---
+
 async function sendToBackend() {
   try {
     const game = gameSelect.value;
@@ -308,11 +308,11 @@ async function sendToBackend() {
 
 generateBtn.addEventListener('click', async () => {
   generateFromInputs();
-  // small delay to ensure inputs exist
+  
   setTimeout(()=>sendToBackend(), 120);
 });
 
-// initialize with default team inputs
+
 createTeamInputs(parseInt(numTeamsInput.value) || 8);
 </script>
 </body>

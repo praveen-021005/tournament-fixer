@@ -1,0 +1,21 @@
+[ {
+  "game" : "Cricket",
+  "numTeams" : 8,
+  "teams" : [ "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed" ],
+  "timestamp" : "2025-10-25T07:11:05.283Z"
+}, {
+  "game" : "Cricket",
+  "numTeams" : 8,
+  "teams" : [ "Tigers67", "Lions97", "Eagles29", "Warriors66", "Knights63", "Falcons33", "Dragons32", "Spartans13" ],
+  "timestamp" : "2025-10-25T07:17:14.623Z"
+}, {
+  "game" : "Cricket",
+  "numTeams" : 8,
+  "teams" : [ "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed", "Unnamed" ],
+  "timestamp" : "2025-10-25T13:42:13.553Z"
+}, {
+  "game" : "Cricket",
+  "numTeams" : 8,
+  "teams" : [ "Tigers82", "Lions61", "Eagles9", "Warriors68", "Knights19", "Falcons97", "Dragons83", "Spartans96" ],
+  "timestamp" : "2025-10-25T13:42:22.395Z"
+} ]
